@@ -20,14 +20,12 @@ const createFixabay = async () => {
     )
     .then(res => {
       const array = res.data.hits;
-      console.log(res.data);
-      console.log(array.length);
       if (array.length !== 0) {
         for (let i = 0; i < array.length; i++) {
           galleryEle.insertAdjacentHTML(
             'beforeend',
             `<div class="photo-card">
-            <a href="${array[i].largeImageURL}"> <img src="${array[i].webformatURL}" alt="${array[i].tags}" loading="lazy" /></a>
+            <a href="${array[i].largeImageURL}"> <img src="${array[i].webformatURL}" alt="${array[i].tags}" loading="lazy" width="640px" height = 427px" /></a>
             <div class="info">
               <p class="info-item">
                 <b>Likes: ${array[i].likes}</b>
@@ -46,14 +44,20 @@ const createFixabay = async () => {
           );
           loadMoreBtn.style.display = 'block';
         }
-        lightbox = new SimpleLightbox('.gallery a', {
-          /* options */
-        });
+        lightbox = new SimpleLightbox('.gallery a', {});
         Notiflix.Report.success(
           'Success!',
           `Hooray! We found ${res.data.totalHits} images.`,
           'Ok'
         );
+        const { height: cardHeight } = document
+          .querySelector('.gallery')
+          .firstElementChild.getBoundingClientRect();
+
+        window.scrollBy({
+          top: cardHeight * 2,
+          behavior: 'smooth',
+        });
       } else {
         loadMoreBtn.style.display = 'none';
         Notiflix.Notify.failure(
@@ -92,7 +96,7 @@ const moreFixabay = async () => {
           galleryEle.insertAdjacentHTML(
             'beforeend',
             `<div class="photo-card">
-           <a href="${array[i].largeImageURL}"> <img src="${array[i].webformatURL}" alt="${array[i].tags}" loading="lazy" /></a>
+           <a href="${array[i].largeImageURL}"> <img src="${array[i].webformatURL}" alt="${array[i].tags}" loading="lazy" width="640px" height = 427px"/></a>
             <div class="info">
               <p class="info-item">
                 <b>Likes: ${array[i].likes}</b>
@@ -112,6 +116,14 @@ const moreFixabay = async () => {
         }
         lightbox.refresh();
         loadMoreBtn.style.display = 'block';
+        const { height: cardHeight } = document
+          .querySelector('.gallery')
+          .firstElementChild.getBoundingClientRect();
+
+        window.scrollBy({
+          top: cardHeight * 2,
+          behavior: 'smooth',
+        });
       } else {
         loadMoreBtn.style.display = 'none';
         Notiflix.Report.warning(

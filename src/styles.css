@@ -1,3 +1,44 @@
 .load-more {
   display: none;
+  width: 600px;
+  height: 50px;
+  background-color: orange;
+}
+body {
+  margin: 0px;
+}
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+}
+
+.info {
+  display: flex;
+  gap: 40px;
+}
+
+.search-form {
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+  background-color: aqua;
+}
+
+button {
+  font-size: 30px;
+  border-radius: 10px;
+}
+
+input {
+  width: 300px;
+  border-radius: 10px;
+  font-size: 25px;
+}
+
+.button-next {
+  display: flex;
+  justify-content: center;
+  padding: 40px;
 }
