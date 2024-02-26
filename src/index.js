@@ -1,11 +1,14 @@
 import Notiflix from 'notiflix';
 import axios from 'axios';
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const form = document.querySelector('.search-form');
 const inputWindow = document.querySelector('input');
-const gallery = document.querySelector('.gallery');
+const galleryEle = document.querySelector('.gallery');
 const loadMoreBtn = document.querySelector('.load-more');
 let page = 1;
+let lightbox;
 
 //nowy wybór
 const createFixabay = async () => {
@@ -21,10 +24,10 @@ const createFixabay = async () => {
       console.log(array.length);
       if (array.length !== 0) {
         for (let i = 0; i < array.length; i++) {
-          gallery.insertAdjacentHTML(
+          galleryEle.insertAdjacentHTML(
             'beforeend',
             `<div class="photo-card">
-            <img src="${array[i].webformatURL}" alt="${array[i].tags}" loading="lazy" />
+            <a href="${array[i].largeImageURL}"> <img src="${array[i].webformatURL}" alt="${array[i].tags}" loading="lazy" /></a>
             <div class="info">
               <p class="info-item">
                 <b>Likes: ${array[i].likes}</b>
@@ -41,11 +44,18 @@ const createFixabay = async () => {
             </div>
           </div>`
           );
+          loadMoreBtn.style.display = 'block';
         }
-        Notiflix.Notify.success(
-          `Hooray! We found ${res.data.totalHits} images.`
+        lightbox = new SimpleLightbox('.gallery a', {
+          /* options */
+        });
+        Notiflix.Report.success(
+          'Success!',
+          `Hooray! We found ${res.data.totalHits} images.`,
+          'Ok'
         );
       } else {
+        loadMoreBtn.style.display = 'none';
         Notiflix.Notify.failure(
           'Sorry, there are no images matching your search query. Please try again.'
         );
@@ -61,7 +71,6 @@ function search(event) {
     createFixabay();
     let photoCards = document.querySelectorAll('.photo-card');
     photoCards.forEach(element => element.remove());
-    loadMoreBtn.style.display = 'block';
   }
 }
 
@@ -80,10 +89,10 @@ const moreFixabay = async () => {
       console.log(array.length);
       if (page * 40 < res.data.totalHits + 40) {
         for (let i = 0; i < array.length; i++) {
-          gallery.insertAdjacentHTML(
+          galleryEle.insertAdjacentHTML(
             'beforeend',
             `<div class="photo-card">
-            <img src="${array[i].webformatURL}" alt="${array[i].tags}" loading="lazy" />
+           <a href="${array[i].largeImageURL}"> <img src="${array[i].webformatURL}" alt="${array[i].tags}" loading="lazy" /></a>
             <div class="info">
               <p class="info-item">
                 <b>Likes: ${array[i].likes}</b>
@@ -101,8 +110,10 @@ const moreFixabay = async () => {
           </div>`
           );
         }
+        lightbox.refresh();
         loadMoreBtn.style.display = 'block';
       } else {
+        loadMoreBtn.style.display = 'none';
         Notiflix.Report.warning(
           'WARNING!',
           "We're sorry, but you've reached the end of search results.",
