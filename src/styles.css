@@ -49,6 +49,7 @@ input {
 .photo-card {
   border-radius: 10px;
   background-color: white;
+  box-shadow: 5px 5px;
 }
  img {
   border-radius: 10px 10px 0px 0px

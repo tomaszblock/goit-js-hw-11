@@ -20,25 +20,30 @@ const createFixabay = async () => {
     )
     .then(res => {
       const array = res.data.hits;
+      console.log(res.data)
       if (array.length !== 0) {
         for (let i = 0; i < array.length; i++) {
           galleryEle.insertAdjacentHTML(
             'beforeend',
             `<div class="photo-card">
-            <a href="${array[i].largeImageURL}"> <img src="${array[i].webformatURL}" alt="${array[i].tags}" loading="lazy" width="640px" height = 427px" /></a>
+            <a href="${array[i].largeImageURL}"> <img src="${array[i].webformatURL}" alt="${array[i].tags}" loading="lazy" width="350px" height = 427px" /></a>
             <div class="info">
+            <div>
               <p class="info-item">
                 <b>Likes: ${array[i].likes}</b>
               </p>
               <p class="info-item">
                 <b>Views: ${array[i].views}</b>
               </p>
+              </div>
+              <div>
               <p class="info-item">
                 <b>Comments: ${array[i].comments}</b>
               </p>
               <p class="info-item">
                 <b>Downloads: ${array[i].downloads}</b>
               </p>
+              </div>
             </div>
           </div>`
           );
@@ -50,14 +55,7 @@ const createFixabay = async () => {
           `Hooray! We found ${res.data.totalHits} images.`,
           'Ok'
         );
-        const { height: cardHeight } = document
-          .querySelector('.gallery')
-          .firstElementChild.getBoundingClientRect();
-
-        window.scrollBy({
-          top: cardHeight * 2,
-          behavior: 'smooth',
-        });
+    
       } else {
         loadMoreBtn.style.display = 'none';
         Notiflix.Notify.failure(
@@ -96,20 +94,24 @@ const moreFixabay = async () => {
           galleryEle.insertAdjacentHTML(
             'beforeend',
             `<div class="photo-card">
-           <a href="${array[i].largeImageURL}"> <img src="${array[i].webformatURL}" alt="${array[i].tags}" loading="lazy" width="640px" height = 427px"/></a>
+           <a href="${array[i].largeImageURL}"> <img src="${array[i].webformatURL}" alt="${array[i].tags}" loading="lazy" width="350px" height = 427px"/></a>
             <div class="info">
               <p class="info-item">
+              <div>
                 <b>Likes: ${array[i].likes}</b>
               </p>
               <p class="info-item">
                 <b>Views: ${array[i].views}</b>
               </p>
+              </div>
+              <div>
               <p class="info-item">
                 <b>Comments: ${array[i].comments}</b>
               </p>
               <p class="info-item">
                 <b>Downloads: ${array[i].downloads}</b>
               </p>
+              </div>
             </div>
           </div>`
           );
