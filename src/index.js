@@ -26,7 +26,7 @@ const createFixabay = async () => {
           galleryEle.insertAdjacentHTML(
             'beforeend',
             `<div class="photo-card">
-            <a href="${array[i].largeImageURL}"> <img src="${array[i].webformatURL}" alt="${array[i].tags}" loading="lazy" width="350px" height = 427px" /></a>
+            <a href="${array[i].largeImageURL}"> <img src="${array[i].webformatURL}" alt="${array[i].tags}" loading="lazy" width="350px" height = 250px" /></a>
             <div class="info">
             <div>
               <p class="info-item">
@@ -94,7 +94,7 @@ const moreFixabay = async () => {
           galleryEle.insertAdjacentHTML(
             'beforeend',
             `<div class="photo-card">
-           <a href="${array[i].largeImageURL}"> <img src="${array[i].webformatURL}" alt="${array[i].tags}" loading="lazy" width="350px" height = 427px"/></a>
+           <a href="${array[i].largeImageURL}"> <img src="${array[i].webformatURL}" alt="${array[i].tags}" loading="lazy" width="350px" height = 250px"/></a>
             <div class="info">
               <p class="info-item">
               <div>
